@@ -922,12 +922,14 @@ void Controller::mergeCommand(Vector<String>& splitted, Vector<Meet>& calendar) 
               std::cout<<"Type the new date in dd.mm.yyyy format: ";
               String date;
               std::cin>>date;
+              std::cin.ignore();
               Date newDate{0,0,0};
               convert.stringToDate(date, newDate);
               if(!valid.validateDate(newDate)) continue;
               if(checkIfFree(newDate, newStartTemp, newEndTemp)) {
                 newCalendar[i].setDate(newDate);
                 calendar.push_back(newCalendar[i]);
+                std::cout<<"The meet was succesfully changed and added to the calendar\n";
                 break;
               } 
             }
@@ -941,22 +943,26 @@ void Controller::mergeCommand(Vector<String>& splitted, Vector<Meet>& calendar) 
                 Time newStart{0,0};
                 convert.stringToTime(startTime, newStart);
                 if(!valid.validateTime(newStart)) continue;
-                std::cout<<"Enter the new starting time in hh:mm format: ";
+                std::cout<<"Enter the new ending time in hh:mm format: ";
                 String endTime;
                 std::cin>>endTime;
+                std::cin.ignore();
                 Time newEnd{0,0};
-                convert.stringToTime(startTime, newEnd);
+                convert.stringToTime(endTime, newEnd);
                 if(!valid.validateTime(newEnd)) continue;
                 if(checkIfFree(newDateTemp, newStart, newEnd)) {
                   newCalendar[i].setStart(newStart);
                   newCalendar[i].setEnd(newEnd);
                   calendar.push_back(newCalendar[i]);
+                  std::cout<<"The meet was succesfully changed and added to the calendar\n";
                   break;
                 }
               }
               break;
             }
+            break;
           }
+          break;
         }
       }
     }
